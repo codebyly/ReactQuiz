@@ -5,7 +5,8 @@ export default function QuizCarrousel({ fragen }) {
   const max = fragen.length - 1;
   const min = 0;
 
-  const { count, increment, decrement, reset, isMax, isMin } = useCount(
+  //   const { count, increment, decrement, reset, isMax, isMin } = useCount(
+  const { count, increment, decrement, isMax, isMin } = useCount(
     0,
     min,
     max,
@@ -32,7 +33,6 @@ export default function QuizCarrousel({ fragen }) {
         <button onClick={increment} disabled={isMax}>
           next
         </button>
-        <button onClick={reset}>Zurücksetzen</button>
       </div>
     </div>
   );

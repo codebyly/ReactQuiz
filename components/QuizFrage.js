@@ -12,9 +12,6 @@ export default function QuizFrage({
       {/* <p>
         QuizFrage <span>Question #{id}</span>
       </p> */}
-      {console.log("QuizFrage")}
-      {console.log(frage)}
-      {/* {console.log(id)} */}
       <span>{frage.category}</span> /<span>{frage.difficulty}</span> /
       <span>{frage.type}</span>
       <h2 dangerouslySetInnerHTML={{ __html: frage.question }} />
@@ -35,8 +32,6 @@ export default function QuizFrage({
 }
 
 function shuffleAnswers(frage) {
-  //   console.log("mischen");
-
   const allAnswers = [...frage.incorrect_answers];
   allAnswers.push(frage.correct_answer);
 
@@ -51,8 +46,4 @@ function shuffleAnswers(frage) {
 
   const shuffledAnswers = shuffle(allAnswers);
   return shuffledAnswers;
-
-  //   console.log(allAnswers);
-  //   console.log(shuffledAnswers);
-  //   console.log("----");
 }

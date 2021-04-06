@@ -25,7 +25,7 @@ export default function QuizLoader({ searchTerm }) {
 
       {/* {console.log(quizFragen)} */}
 
-      <QuizCarrousel fragen={quizFragen} />
+      {quizFragen.length > 1 && <QuizCarrousel fragen={quizFragen} />}
     </div>
   );
 }
@@ -43,7 +43,7 @@ function useLoadQuiz(searchTerm, setQuizFragen) {
         const quizData = await resp.json();
 
         setQuizFragen(quizData.results);
-        console.log(quizData.results);
+        // console.log(quizData.results);
       } catch (error) {
         console.log(error);
       }
