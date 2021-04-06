@@ -1,7 +1,6 @@
 import { useState } from "react";
 import categories from "../components/categories";
 import QuizLoader from "./QuizLoader";
-// &type=multiple
 
 export default function QuizKonfigurator() {
   const [category, setCategory] = useState(0); // &category=23
@@ -9,7 +8,7 @@ export default function QuizKonfigurator() {
   const [amount, setAmount] = useState(10);
 
   const basicSearchTerm = `https://opentdb.com/api.php?amount=${amount}`;
-  const searchTerm = `${basicSearchTerm}&type=multiple&category=${category}&difficulty=${level}`;
+  const searchTerm = `${basicSearchTerm}&category=${category}&difficulty=${level}`;
 
   return (
     <>

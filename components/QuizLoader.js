@@ -1,7 +1,8 @@
 // import { useState, useEffect } from "react"
 
 import { useEffect, useState } from "react";
-import QuizFrage from "./QuizFrage";
+import QuizCarrousel from "./QuizCarrousel";
+// import QuizFrage from "./QuizFrage";
 
 export default function QuizLoader({ searchTerm }) {
   //   const [anfrage, setAnfrage] = useState("");
@@ -12,23 +13,23 @@ export default function QuizLoader({ searchTerm }) {
   return (
     <div>
       <p>QuizLoader</p>
-      {/* Fragen laden...: <span>{searchTerm}</span> */}
+
       {/* nur wenn Fragen geladen und String angeben */}
       {/* array durchlaufen, für jedes Eleemtn eine Frage erzeugen */}
-      {/* {quizFragen.length && (
-        <>
-          <p>{quizFragen[0].category}</p>
-          <p>{quizFragen[0].type}</p>
-        </>
-      )} */}
-      {quizFragen.map((frage, index) => (
+
+      {/* {quizFragen.map((frage, index) => (
         // <p>Kategorie: {frage.category}</p>
         <QuizFrage key={index} frage={frage} id={index + 1} />
         // einzelner FrageDeatensatze wird übergeben
-      ))}
+      ))} */}
+
+      {/* {console.log(quizFragen)} */}
+
+      <QuizCarrousel fragen={quizFragen} />
     </div>
   );
 }
+
 function useLoadQuiz(searchTerm, setQuizFragen) {
   useEffect(() => {
     async function fetchQuiz() {

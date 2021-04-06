@@ -1,4 +1,5 @@
 import Layout from "../components/Layout";
+// import MoodToggle from "../components/MoodToggle";
 
 export default function Home() {
   return (

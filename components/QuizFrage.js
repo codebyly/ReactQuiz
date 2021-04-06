@@ -1,14 +1,17 @@
 import React from "react";
 
-export default function QuizFrage({ frage, id }) {
+export default function QuizFrage({
+  frage,
+  // , id
+}) {
   const answers = shuffleAnswers(frage);
 
   return (
     <div>
-      <hr />
-      <p>
+      {/* <hr /> */}
+      {/* <p>
         QuizFrage <span>Question #{id}</span>
-      </p>
+      </p> */}
       {console.log("QuizFrage")}
       {console.log(frage)}
       {/* {console.log(id)} */}
