@@ -9,4 +9,15 @@
   box-shadow: none;
   margin: 0.5rem;
   font-weight: bold;
+
+  .correct {
+    background-color: green;
+  }
+  .incorrect {
+    background-color: red;
+  }
+}
+
+.rechts {
+  float: right;
 }

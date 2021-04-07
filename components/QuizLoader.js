@@ -12,8 +12,6 @@ export default function QuizLoader({ searchTerm }) {
 
   return (
     <div>
-      <p>QuizLoader</p>
-
       {/* nur wenn Fragen geladen und String angeben */}
       {/* array durchlaufen, für jedes Eleemtn eine Frage erzeugen */}
 

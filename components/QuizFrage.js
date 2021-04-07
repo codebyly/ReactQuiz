@@ -1,10 +1,30 @@
-import React from "react";
+import { useState } from "react";
 
 export default function QuizFrage({
   frage,
+  setPoints,
   // , id
 }) {
   const answers = shuffleAnswers(frage);
+  const [isChecked, setIsChecked] = useState(false);
+
+  // ANtwort prüfen
+  const checkAnswer = (e) => {
+    console.log(`Value: ${e.target.value}`); //liest "flasch" wie Antwort
+    console.log(`richtig: ${frage.correct_answer}`); //liest falsch
+    //Alle buttons classname resetten bei weiter
+
+    //Doppelte Antwort ausschließen durch disablen
+    setIsChecked(true);
+    console.log(e.target.enabled);
+    //ANTWORT auf Richtigkeit prüfen > Punkte
+    e.target.value === frage.correct_answer
+      ? ((e.target.className = "correct"), setPoints((current) => current + 1))
+      : // console.log("RICHTIG")
+        (e.target.className = "incorrect"); //console.log("FALSCH");
+  };
+
+  // onChange={(e) => setCategory(parseInt(e.target.value))}
 
   return (
     <div>
@@ -18,8 +38,19 @@ export default function QuizFrage({
       <div>
         {answers.map((answer, index) => (
           //   antwort kann html enthalten!
-          <button key={index} dangerouslySetInnerHTML={{ __html: answer }} />
+          <button
+            className=""
+            value={answer}
+            onClick={checkAnswer}
+            disabled={isChecked}
+            key={index}
+            dangerouslySetInnerHTML={{ __html: answer }}
+          />
         ))}
+        {/* <button
+          className="solution"
+          dangerouslySetInnerHTML={{ __html: correct_answer }}
+        ></button> */}
       </div>
       {/* <button>{frage.correct_answer}</button>
       <button>Antwort2</button>
@@ -47,3 +78,7 @@ function shuffleAnswers(frage) {
   const shuffledAnswers = shuffle(allAnswers);
   return shuffledAnswers;
 }
+
+// function checkAnswer() {
+//   console.log("prüfen");
+// }
