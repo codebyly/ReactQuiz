@@ -6,9 +6,14 @@ export default function QuizKonfigurator() {
   const [category, setCategory] = useState(0); // &category=23
   const [level, setLevel] = useState(0); //&difficulty=easy
   const [amount, setAmount] = useState(10);
+  const [isStarted, setIsStarted] = useState(false);
 
   const basicSearchTerm = `https://opentdb.com/api.php?amount=${amount}`;
   const searchTerm = `${basicSearchTerm}&category=${category}&difficulty=${level}`;
+
+  const loadQuiz = () => {
+    setIsStarted(true);
+  };
 
   return (
     <>
@@ -66,7 +71,7 @@ export default function QuizKonfigurator() {
           </select>
         </div>
 
-        <button>START</button>
+        <button onClick={loadQuiz}>START</button>
       </form>
 
       <hr />
@@ -75,7 +80,9 @@ export default function QuizKonfigurator() {
       {/* <a href={basicSearchTerm}>{basicSearchTerm}</a> */}
       <a href={searchTerm}>{searchTerm}</a>
       <hr />
-      <QuizLoader searchTerm={searchTerm} />
+
+      {/* Quiz erst bei Klick auf Start (isStarted) */}
+      {isStarted && <QuizLoader searchTerm={searchTerm} />}
     </>
   );
 }
