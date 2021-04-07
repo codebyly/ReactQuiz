@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { useCount } from "../hooks/useCount";
 import QuizFrage from "../components/QuizFrage";
 
-export default function QuizCarrousel({ fragen }) {
+export default function QuizCarrousel({ fragen, points, setPoints }) {
   const max = fragen.length - 1;
   const min = 0;
-  const [points, setPoints] = useState(0);
 
   //   const { count, increment, decrement, reset, isMax, isMin } = useCount(
   const { count, increment, decrement, isMax, isMin } = useCount(

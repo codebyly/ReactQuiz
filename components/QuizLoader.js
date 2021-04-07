@@ -7,6 +7,7 @@ import QuizCarrousel from "./QuizCarrousel";
 export default function QuizLoader({ searchTerm }) {
   //   const [anfrage, setAnfrage] = useState("");
   const [quizFragen, setQuizFragen] = useState([]); //Quizfragen = Ergebnis der anfrage
+  const [points, setPoints] = useState(0); //ursprünglich in QuizCarousel
 
   useLoadQuiz(searchTerm, setQuizFragen);
 
@@ -15,15 +16,31 @@ export default function QuizLoader({ searchTerm }) {
       {/* nur wenn Fragen geladen und String angeben */}
       {/* array durchlaufen, für jedes Eleemtn eine Frage erzeugen */}
 
-      {/* {quizFragen.map((frage, index) => (
+      {/* Fragen untereinander laden */}
+      {/* <p>Punktestand: {points}</p>
+      {quizFragen.map((frage, index) => (
         // <p>Kategorie: {frage.category}</p>
-        <QuizFrage key={index} frage={frage} id={index + 1} />
+
+        <QuizFrage
+          key={index}
+          frage={frage}
+          id={index + 1}
+          fragen={quizFragen}
+          setPoints={setPoints}
+        />
         // einzelner FrageDeatensatze wird übergeben
       ))} */}
 
       {/* {console.log(quizFragen)} */}
 
-      {quizFragen.length > 1 && <QuizCarrousel fragen={quizFragen} />}
+      {/* Fragen in QuizCarousel laden */}
+      {quizFragen.length > 1 && (
+        <QuizCarrousel
+          fragen={quizFragen}
+          points={points}
+          setPoints={setPoints}
+        />
+      )}
     </div>
   );
 }

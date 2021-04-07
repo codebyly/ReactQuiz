@@ -15,13 +15,14 @@ export default function QuizFrage({
     //Alle buttons classname resetten bei weiter
 
     //Doppelte Antwort ausschließen durch disablen
-    setIsChecked(true);
-    console.log(e.target.enabled);
+    // setIsChecked(true);// console.log(e.target.enabled);
+
     //ANTWORT auf Richtigkeit prüfen > Punkte
     e.target.value === frage.correct_answer
-      ? ((e.target.className = "correct"), setPoints((current) => current + 1))
-      : // console.log("RICHTIG")
-        (e.target.className = "incorrect"); //console.log("FALSCH");
+      ? ((e.target.className = "correct"),
+        setPoints((current) => current + 1),
+        setIsChecked(true)) //disables rihctige Antwort um doppelte Punkte zu vermeiden
+      : (e.target.className = "incorrect"); //console.log("FALSCH");
   };
 
   // onChange={(e) => setCategory(parseInt(e.target.value))}
