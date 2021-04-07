@@ -8,8 +8,13 @@ export default function QuizLoader({ searchTerm }) {
   //   const [anfrage, setAnfrage] = useState("");
   const [quizFragen, setQuizFragen] = useState([]); //Quizfragen = Ergebnis der anfrage
   const [points, setPoints] = useState(0); //ursprünglich in QuizCarousel
-
   useLoadQuiz(searchTerm, setQuizFragen);
+
+  function setStatus(index, status) {
+    const updatedQuizFragen = [...quizFragen];
+    updatedQuizFragen[index].status = status;
+    setQuizFragen(updatedQuizFragen);
+  }
 
   return (
     <div>
@@ -56,7 +61,9 @@ function useLoadQuiz(searchTerm, setQuizFragen) {
         }
 
         const quizData = await resp.json();
-
+        for (const result of quizData.results) {
+          result.status = "unanswered";
+        }
         setQuizFragen(quizData.results);
         // console.log(quizData.results);
       } catch (error) {

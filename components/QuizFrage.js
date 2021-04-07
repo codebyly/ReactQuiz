@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 export default function QuizFrage({
   frage,
@@ -7,18 +7,14 @@ export default function QuizFrage({
 }) {
   const [isChecked, setIsChecked] = useState(false);
 
-  let isShuffled = false;
-  let answers;
-  // PROBLEM: soll nur beim ersten Laden!!
-  // mischen falls falsch , isShuffled=true,
-  //FolgePROBLEM: shuffled nur bei richtiger antwort >> falsche Markierung
-  console.log(`SHUFFLED:${isShuffled}`);
-  if (isShuffled === false) {
-    // answers = shuffleAnswers(frage);
-    answers = shuffleAnswers2(frage);
-    isShuffled = true;
-  }
-  console.log(`SHUFFLED:${isShuffled}`);
+  const [statusAntwort, setStatusAntwort] = useState("unbeantwortet");
+  const answers = useMemo(() => shuffleAnswers2(frage), [frage]);
+  //abhg von änderung der rfage
+  //selber wert in answers
+
+  //muss pro FRage, sonst werden fragen wweitwegwgwbwn
+
+  // console.log(`SHUFFLED:${isShuffled}`);
 
   // ANtwort prüfen
   const checkAnswer = (e) => {
@@ -29,17 +25,24 @@ export default function QuizFrage({
     //setIsChecked(true); // console.log(e.target.enabled);
 
     //alle Antworten auflösen:
-    e.target.className = e.target.value;
+    //aktueller Button
+    // e.target.className = e.target.value;
+    // andere Button auflösen und disablen
+
     //PROBLEM : Alle buttons classname und enable resetten bei weiter
 
-    //ANTWORT auf Richtigkeit prüfen > Punkte
-    // e.target.value === frage.correct_answer
-    e.target.value === "correct"
-      ? // (e.target.className = "correct"),
-        setPoints((current) => current + 1)
-      : // , setIsChecked(true)) //disables rihctige Antwort um doppelte Punkte zu vermeiden
-        // (e.target.className = "incorrect");
-        console.log("FALSCH");
+    //Antwort auf Richtigkeit prüfen > Punkte
+    // e.target.value === frage.correct_answer //alt
+    if (e.target.value === "correct") {
+      setPoints((current) => current + 1);
+      setStatusAntwort("richtig");
+    } else {
+      setStatusAntwort("falsch");
+    }
+    // // ? // (e.target.className = "correct"),
+
+    // : // , setIsChecked(true)) //disables rihctige Antwort um doppelte Punkte zu vermeiden
+    //   // (e.target.className = "incorrect");
   };
 
   // onChange={(e) => setCategory(parseInt(e.target.value))}
@@ -54,19 +57,29 @@ export default function QuizFrage({
       <span>{frage.type}</span>
       <h2 dangerouslySetInnerHTML={{ __html: frage.question }} />
       <div>
-        {answers.map((answer, index) => (
-          //   antwort kann html enthalten!
+        {answers.map((answer, index) => {
+          let css_classes = "test";
+          //frage beantwortret? > setze klasse (setzte klasse rihctig : flasch)
+          // iststatus richtig & istrichtige antwort dann css setzen
+          //frage zusätzlich rihctig oder flasche infärben
+          if (statusAntwort !== "unbeantwortet") {
+            css_classes = answer.zustand;
+          }
 
-          <button
-            className=""
-            // value={answer.antwort}
-            value={answer.zustand}
-            onClick={checkAnswer}
-            disabled={isChecked}
-            key={index}
-            dangerouslySetInnerHTML={{ __html: answer.antwort }}
-          />
-        ))}
+          return (
+            //   antwort kann html enthalten!
+            //braucht state pro Element/Frage!
+            <button
+              className={css_classes} //statusAntwort!?
+              // value={answer.antwort}
+              value={answer.zustand}
+              onClick={checkAnswer}
+              disabled={isChecked}
+              key={index}
+              dangerouslySetInnerHTML={{ __html: answer.antwort }}
+            />
+          );
+        })}
         {/* <button
           className="solution"
           dangerouslySetInnerHTML={{ __html: correct_answer }}
@@ -84,7 +97,7 @@ export default function QuizFrage({
 
 // Neue Version: Antworten als OBj mit true/false Zustand
 function shuffleAnswers2(frage) {
-  // console.log("Shuffle answers2 called");
+  console.log("Shuffle answers2 called");
 
   const allAnswers = frage.incorrect_answers.map((item) => {
     return {

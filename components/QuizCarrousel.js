@@ -27,6 +27,7 @@ export default function QuizCarrousel({ fragen, points, setPoints }) {
       {fragen.length > 1 && (
         // <div>{fragen[count].question}</div>
         <QuizFrage frage={fragen[count]} setPoints={setPoints} />
+        //hier muss information mitgeggben werden/existieren ob frage beantwortet
       )}
       <hr />
       <div className="mood__buttons">
