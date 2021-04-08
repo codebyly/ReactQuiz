@@ -16,12 +16,12 @@
   background-color: $carrousel;
 
   .correct {
-    border: 2px solid green;
-    color: green;
+    border: 2px solid $correct;
+    color: $correct;
   }
   .incorrect {
-    border: 2px solid red;
-    color: red;
+    border: 2px solid $incorrect;
+    color: $incorrect;
   }
   h2.correct,
   h2.incorrect {

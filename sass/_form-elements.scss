@@ -2,14 +2,14 @@ button {
   padding: 0.5em;
   border-radius: 0.5em;
   font-size: 1.2rem;
-  background: orange;
-  color: $black;
+  background: $burnt-sienna;
+  color: $text;
   border: none;
   box-shadow: none;
   margin: 0.5rem;
   font-weight: bold;
   &[disabled] {
-    background: $text;
+    background: $white;
   }
 }
 
