@@ -8,6 +8,8 @@ export default function QuizLoader({ searchTerm }) {
   //   const [anfrage, setAnfrage] = useState("");
   const [quizFragen, setQuizFragen] = useState([]); //Quizfragen = Ergebnis der anfrage
   const [points, setPoints] = useState(0); //ursprünglich in QuizCarousel
+  const [completed, setCompleted] = useState(0); //zählt beantwortete Fragen
+
   useLoadQuiz(searchTerm, setQuizFragen);
 
   function setStatus(index, status) {
@@ -50,6 +52,8 @@ export default function QuizLoader({ searchTerm }) {
           fragen={quizFragen}
           points={points}
           setPoints={setPoints}
+          completed={completed}
+          setCompleted={setCompleted}
           setStatus={setStatus}
         />
       )}

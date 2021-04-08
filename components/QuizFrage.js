@@ -1,79 +1,64 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 export default function QuizFrage({
   frage,
   setPoints,
   setStatus,
   count,
+  setCompleted,
   // , id
 }) {
   const [isChecked, setIsChecked] = useState(false);
 
-  console.log(`Status Frage ${count} in QuizFrage: ${frage.status}`); //angekommen
-  // console.log(`Index Frage in QuizFrage: ${count}`); //angekommen
+  // const [statusAntwort, setStatusAntwort] = useState("unbeantwortet");
 
-  const [statusAntwort, setStatusAntwort] = useState("unbeantwortet");
-  const answers = useMemo(() => shuffleAnswers2(frage), [frage]);
-  //abhg von änderung der rfage
+  //useMemo abhg von änderung der frage
   //selber wert in answers
+  const answers = useMemo(() => shuffleAnswers2(frage), [frage]);
 
-  // ANtwort prüfen
+  //useEffect reagiert auf Änderung von status
+  // setzt IsChecked zum disablen/enablen der Antworten
+  useEffect(() => {
+    document.title = `Status ${frage.status} `;
+    frage.status === "answered" ? setIsChecked(true) : setIsChecked(false);
+  }, [frage.status]);
+
+  // Antwort prüfen
   const checkAnswer = (e) => {
-    //Doppelte Antwort ausschließen durch disablen
-    //setIsChecked(true); // console.log(e.target.enabled);
+    // console.log(`Hier ist checkAnswer -- status:${frage.status}`);
 
-    //alle Antworten auflösen: über css_classes
+    //frage ist beantrwortet, status setzen
+    setStatus(count, "answered");
+    frage.status === "answered" && console.log("BEANTWORTET");
+    // setStatusAntwort("beantwortet");
+    //zähler hochsetzen
+    setCompleted((current) => current + 1);
+
+    //Doppelte Antwort ausschließen durch disablen
+    //via useEffect aufgerufen durch Änderung vom status
+    //alle Antworten auflösen: siehe css_classes
+
+    // e.target.className === "correct" && console.log("checkAnswer: beantwortet");
+    // //erst bei 2. click, weil classe nach erstem click vergeben
 
     //Antwort auf Richtigkeit prüfen > Punkte
-    //if/else Version
-    // e.target.value === frage.correct_answer //alt
-    // if (e.target.value === "correct") {
-    //   setPoints((current) => current + 1);
-    //   setStatusAntwort("richtig"); //verteilt klasse
-    // } else {
-    //   setStatusAntwort("falsch");
-    // }
-
-    //frage beantwortet:
-    setStatus(count, "answered");
-    setStatusAntwort("beantwortet");
-
-    // weitere (richtige) Antwort disablen
-    // um doppelte Punkte zu vermeiden
-    //falls klasse anwered: correct || incorrect
-    //, setIsChecked(true) >> disbales
-
-    // : // , setIsChecked(true))
-    //   // (e.target.className = "incorrect");
-    // e.target.className === "correct" ? setIsChecked(true) : setIsChecked(false);
-    e.target.className === "correct" && console.log("checkAnswer: beantwortet");
-    //erst bei 2. click, weil classe nach erstem click vergeben
-
-    //richtig benatwortet?
     //ternary version
     e.target.value === "correct"
-      ? (setStatusAntwort("richtig"),
-        setPoints((current) => current + 1),
+      ? //setStatusAntwort("richtig"),
+        (setPoints((current) => current + 1),
         // setIsChecked(true),
         console.log("rihctig beantwortet")) /*, //doppelte antwort vermeiden*/
-      : setStatusAntwort("falsch");
+      : console.log("falsch"); //setStatusAntwort("FALSCH");
   };
-
-  // onChange={(e) => setCategory(parseInt(e.target.value))}
 
   return (
     <div>
-      {/* <hr /> */}
-      {/* <p>
-        QuizFrage <span>Question #{id}</span>
-      </p> */}
       <span>{frage.category}</span> /<span>{frage.difficulty}</span> /
       <span>{frage.type}</span>
-      <h2 dangerouslySetInnerHTML={{ __html: frage.question }} />
+      <h2 className={} dangerouslySetInnerHTML={{ __html: frage.question }} />
       <div>
-        {console.log(`frage.status: ${frage.status}`)}
         {answers.map((answer, index) => {
-          let css_classes = "test";
+          let css_classes = "";
           //frage beantwortret? > setze klasse (setzte klasse rihctig : flasch)
           // iststatus richtig & istrichtige antwort dann css setzen
           //frage zusätzlich rihctig oder flasche infärben
@@ -119,9 +104,6 @@ export default function QuizFrage({
 
 // Neue Version: Antworten als OBj mit true/false Zustand
 function shuffleAnswers2(frage) {
-  // console.log(`Shuffle answers2 called für frage `);
-  // console.log(`frage.status: ${frage.status}`);
-
   const allAnswers = frage.incorrect_answers.map((item) => {
     return {
       antwort: item,
@@ -129,7 +111,6 @@ function shuffleAnswers2(frage) {
       status: frage.status,
     };
   });
-  // console.log(`allAnswers ${allAnswers}`);
 
   allAnswers.push({
     antwort: frage.correct_answer,

@@ -5,6 +5,8 @@ export default function QuizCarrousel({
   fragen, //Entpacken funktioniert nicht!?
   points,
   setPoints,
+  completed,
+  setCompleted,
   setStatus,
 }) {
   const max = fragen.length - 1;
@@ -26,7 +28,8 @@ export default function QuizCarrousel({
         <span className="links">
           Question # {count + 1}/{fragen.length}
         </span>
-        <span className="rechts"> answered correctly: {points}</span>
+        <span className="rechts"> / points: {points}</span>
+        <span className="rechts"> answered: {completed} / </span>
       </p>
       <hr />
 
@@ -38,6 +41,7 @@ export default function QuizCarrousel({
           setPoints={setPoints}
           setStatus={setStatus}
           count={count}
+          setCompleted={setCompleted}
         />
         //hier muss information mitgeggben werden/existieren ob frage beantwortet
       )}
