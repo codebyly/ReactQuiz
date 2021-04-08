@@ -36,10 +36,11 @@ export default function QuizFrage({
 
     //Doppelte Antwort ausschließen durch disablen
     //via useEffect aufgerufen durch Änderung vom status
+
     //alle Antworten auflösen: siehe css_classes
 
-    // e.target.className === "correct" && console.log("checkAnswer: beantwortet");
-    // //erst bei 2. click, weil classe nach erstem click vergeben
+    e.target.className === "correct" && console.log("checkAnswer: beantwortet");
+    //erst bei 2. click, weil classe nach erstem click vergeben
 
     //Antwort auf Richtigkeit prüfen > Punkte
     //ternary version
@@ -55,7 +56,7 @@ export default function QuizFrage({
     <div>
       <span>{frage.category}</span> /<span>{frage.difficulty}</span> /
       <span>{frage.type}</span>
-      <h2 className={} dangerouslySetInnerHTML={{ __html: frage.question }} />
+      <h2 dangerouslySetInnerHTML={{ __html: frage.question }} />
       <div>
         {answers.map((answer, index) => {
           let css_classes = "";
