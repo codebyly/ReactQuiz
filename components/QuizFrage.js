@@ -21,7 +21,7 @@ export default function QuizFrage({
   useEffect(() => {
     document.title = `Question ${count + 1}: ${frage.status} `;
     frage.status !== "unanswered" ? setIsChecked(true) : setIsChecked(false);
-  }, [frage.status]);
+  }, [frage.status, count]);
 
   let css_classes_h2 = "unbeantwortet"; //zeigt Zustand der Frage
   // wenn   frage.status !== "unanswered"  >> gib cssklasse beantortrt bzw correct/incorrect

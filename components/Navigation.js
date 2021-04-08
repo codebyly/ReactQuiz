@@ -8,14 +8,8 @@ export default function Navigation() {
       <Link href="/quiz">
         <a>Quiz</a>
       </Link>
-      <Link href="/gallery">
-        <a>Galerie</a>
-      </Link>
       <Link href="/joke">
-        <a>Witz des Tages</a>
-      </Link>
-      <Link href="/kontakt">
-        <a>Kontakt</a>
+        <a>Joke of the day</a>
       </Link>
       <Link href="/impressum">
         <a>Impressum</a>

@@ -8,8 +8,7 @@ export default function JokeFinder() {
   useFetchJoke(setJoke, setPunch);
 
   return (
-    <div>
-      <h3>JokeFinder: Witz des Tages</h3>
+    <div className="quiz">
       {joke && <p>{joke}</p>}
       {punch && <p>{punch}</p>}
     </div>

@@ -5,7 +5,7 @@ import QuizLoader from "./QuizLoader";
 export default function QuizKonfigurator() {
   const [category, setCategory] = useState(0); // &category=23
   const [level, setLevel] = useState(0); //&difficulty=easy
-  const [amount, setAmount] = useState(10);
+  const [amount, setAmount] = useState(5);
   const [isStarted, setIsStarted] = useState(false);
 
   const basicSearchTerm = `https://opentdb.com/api.php?amount=${amount}`;
@@ -76,7 +76,7 @@ export default function QuizKonfigurator() {
           <button onClick={loadQuiz}>START</button>
         </form>
       </div>
-      <div className="quiz quiz-konfig">
+      <div className="quiz">
         <strong>Aktueller Suchpfad: </strong>
         <br />
         {/* <a href={basicSearchTerm}>{basicSearchTerm}</a> */}

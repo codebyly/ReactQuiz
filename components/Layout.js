@@ -13,7 +13,7 @@ export default function Layout({ children, title }) {
       <Header />
       <main className="site-main inner-width">
         {/* //falls titel existiert titel ausgeben sonst nichts */}
-        {title && <h1>{title}</h1>}
+        {title && <h2>{title}</h2>}
         {children}
       </main>
       <Footer />
