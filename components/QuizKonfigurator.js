@@ -83,7 +83,7 @@ export default function QuizKonfigurator() {
       <hr />
 
       {/* Quiz erst bei Klick auf Start (isStarted) */}
-      {isStarted && <QuizLoader searchTerm={searchTerm} />}
+      {isStarted && <QuizLoader searchTerm={searchTerm} amount={amount} />}
     </>
   );
 }

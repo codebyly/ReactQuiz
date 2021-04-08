@@ -5,27 +5,23 @@ import QuizCarrousel from "./QuizCarrousel";
 import QuizResult from "./QuizResult";
 // import QuizFrage from "./QuizFrage";
 
-export default function QuizLoader({ searchTerm }) {
-  //   const [anfrage, setAnfrage] = useState("");
+export default function QuizLoader({ searchTerm, amount }) {
   const [quizFragen, setQuizFragen] = useState([]); //Quizfragen = Ergebnis der anfrage
-  const [points, setPoints] = useState(0); //ursprünglich in QuizCarousel
+  const [points, setPoints] = useState(0); //anzahl richtige antworten = punkte
   const [completed, setCompleted] = useState(0); //zählt beantwortete Fragen
   const isCompleted = completed >= quizFragen.length;
   // console.log(`Game beendet: ${isCompleted}`);
 
   useLoadQuiz(searchTerm, setQuizFragen);
 
+  //setStatus setzt Status der einzelnen Frage
+  //>> Weiterrecihen bis zur QuizFrage zusammen mit index aus QuizCaroussel
   function setStatus(index, status) {
-    console.log("setStatus aufgerufen");
+    // console.log("setStatus aufgerufen");
     const updatedQuizFragen = [...quizFragen];
     updatedQuizFragen[index].status = status;
     setQuizFragen(updatedQuizFragen);
   }
-  //  setStatus Weiterrecihen bis zur QuizFrage zusammen
-  //  mit dem index aus QuizCaroussel der frage,
-  //  dort funktion nutzen um status der aktuellen Farge zu setzen
-  //  status als klasse setzen
-  //  FKT abhg von frage?
 
   return (
     <div>
@@ -47,8 +43,6 @@ export default function QuizLoader({ searchTerm }) {
         // einzelner FrageDeatensatze wird übergeben
       ))} */}
 
-      {/* {console.log(quizFragen)} */}
-
       {/* Fragen in QuizCarousel laden: setStatus mitgeben 
       nur anzeigen, wenn Fragen geladen 
       und ausblenden sobald beendet*/}
@@ -62,7 +56,10 @@ export default function QuizLoader({ searchTerm }) {
           setStatus={setStatus}
         />
       )}
-      {isCompleted && <QuizResult />}
+      {/* QuizResult laden sobald Fragen geladen und Quiz beendet */}
+      {quizFragen.length > 1 && isCompleted && (
+        <QuizResult points={points} amount={amount} />
+      )}
     </div>
   );
 }
