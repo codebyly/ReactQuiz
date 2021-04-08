@@ -1,14 +1,19 @@
-.quiz-carrousel {
-  background-color: azure;
+.quiz {
+  background: $white;
   padding: 0.5em;
   border-radius: 0.5em;
   font-size: 1.2rem;
-  background: azure;
   color: $black;
   border: none;
   box-shadow: none;
   margin: 0.5rem;
   font-weight: bold;
+}
+.quiz-konfig {
+  background-color: $config;
+}
+.quiz-carrousel {
+  background-color: $carrousel;
 
   .correct {
     border: 2px solid green;
@@ -29,14 +34,5 @@
 }
 
 .quiz-result {
-  background-color: azure;
-  padding: 0.5em;
-  border-radius: 0.5em;
-  font-size: 1.2rem;
-  background: azure;
-  color: $black;
-  border: none;
-  box-shadow: none;
-  margin: 0.5rem;
-  font-weight: bold;
+  background-color: $result;
 }

@@ -23,7 +23,7 @@ export default function QuizCarrousel({
   // console.log(`Status Frage: ${fragen[0].status}`);//angekommen
 
   return (
-    <div className="quiz-carrousel ">
+    <div className="quiz quiz-carrousel ">
       <p>
         <span className="links">
           Question # {count + 1}/{fragen.length}
