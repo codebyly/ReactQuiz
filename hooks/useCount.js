@@ -6,10 +6,16 @@ export function useCount(start, min, max, step = 1) {
   const isMax = count === max;
   const isMin = count === min;
 
+  // statt disable Fragem im Kreis zeigen max>0, 0>max
   const increment = () =>
-    setCount((current) => (current + step > max ? max : current + step));
+    setCount((current) => (current + step > max ? 0 : current + step));
   const decrement = () =>
-    setCount((current) => (current - step < min ? min : current - step));
+    setCount((current) => (current - step < min ? max : current - step));
+
+  // const increment = () =>
+  //   setCount((current) => (current + step > max ? max : current + step));
+  // const decrement = () =>
+  //   setCount((current) => (current - step < min ? min : current - step));
   const reset = () => setCount(start);
 
   return { count, setCount, increment, decrement, reset, isMax, isMin }; //Vorteil Obj Reihenfolge egal!!

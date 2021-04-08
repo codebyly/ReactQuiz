@@ -36,7 +36,7 @@ function useFetchJoke(setJoke, setPunch) {
         setJoke(jokeData.setup);
         setPunch(jokeData.punchline);
 
-        console.log(jokeData);
+        // console.log(jokeData);
       } catch (error) {
         console.log(error);
       }
