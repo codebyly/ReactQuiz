@@ -20,16 +20,21 @@ export default function QuizFrage({
   // setzt IsChecked zum disablen/enablen der Antworten
   useEffect(() => {
     document.title = `Status ${frage.status} `;
-    frage.status === "answered" ? setIsChecked(true) : setIsChecked(false);
+    frage.status !== "unanswered" ? setIsChecked(true) : setIsChecked(false);
   }, [frage.status]);
+
+  let css_classes_h2 = "unbeantwortet"; //zeigt Zustand der Frage
+  // wenn   frage.status !== "unanswered"  >> gib cssklasse beantortrt bzw correct/incorrect
+  frage.status === "correct" && (css_classes_h2 = "correct");
+  frage.status === "incorrect" && (css_classes_h2 = "incorrect");
 
   // Antwort prüfen
   const checkAnswer = (e) => {
     // console.log(`Hier ist checkAnswer -- status:${frage.status}`);
 
     //frage ist beantrwortet, status setzen
-    setStatus(count, "answered");
-    frage.status === "answered" && console.log("BEANTWORTET");
+    // setStatus(count, "answered");
+    frage.status !== "unanswered" && console.log("BEANTWORTET");
     // setStatusAntwort("beantwortet");
     //zähler hochsetzen
     setCompleted((current) => current + 1);
@@ -45,18 +50,20 @@ export default function QuizFrage({
     //Antwort auf Richtigkeit prüfen > Punkte
     //ternary version
     e.target.value === "correct"
-      ? //setStatusAntwort("richtig"),
-        (setPoints((current) => current + 1),
-        // setIsChecked(true),
-        console.log("rihctig beantwortet")) /*, //doppelte antwort vermeiden*/
-      : console.log("falsch"); //setStatusAntwort("FALSCH");
+      ? (setStatus(count, "correct"),
+        //setStatusAntwort("richtig"),
+        setPoints((current) => current + 1))
+      : setStatus(count, "incorrect");
   };
 
   return (
     <div>
       <span>{frage.category}</span> /<span>{frage.difficulty}</span> /
       <span>{frage.type}</span>
-      <h2 dangerouslySetInnerHTML={{ __html: frage.question }} />
+      <h2
+        className={css_classes_h2}
+        dangerouslySetInnerHTML={{ __html: frage.question }}
+      />
       <div>
         {answers.map((answer, index) => {
           let css_classes = "";
@@ -66,7 +73,7 @@ export default function QuizFrage({
 
           //offenbart Lösung, sobald beantwortet, also falls frage.status "answered"
           // if (statusAntwort !== "unbeantwortet") {
-          if (frage.status === "answered") {
+          if (frage.status !== "unanswered") {
             // console.log("BEANTWORTET");
             css_classes = `${answer.zustand}`;
             // css_classes = `${answer.zustand}, answered`;
@@ -79,7 +86,6 @@ export default function QuizFrage({
             //braucht state pro Element/Frage!
             <button
               className={css_classes} //statusAntwort!?
-              // value={answer.antwort}
               value={answer.zustand}
               onClick={checkAnswer}
               disabled={isChecked}
@@ -109,7 +115,7 @@ function shuffleAnswers2(frage) {
     return {
       antwort: item,
       zustand: "incorrect",
-      status: frage.status,
+      status: frage.status, //unanswerd, correct, incorrect
     };
   });
 

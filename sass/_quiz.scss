@@ -12,9 +12,15 @@
 
   .correct {
     border: 2px solid green;
+    color: green;
   }
   .incorrect {
     border: 2px solid red;
+    color: red;
+  }
+  h2.correct,
+  h2.incorrect {
+    border: none;
   }
 }
 
