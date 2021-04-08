@@ -1,7 +1,12 @@
 import { useCount } from "../hooks/useCount";
 import QuizFrage from "../components/QuizFrage";
 
-export default function QuizCarrousel({ fragen, points, setPoints }) {
+export default function QuizCarrousel({
+  fragen, //Entpacken funktioniert nicht!?
+  points,
+  setPoints,
+  setStatus,
+}) {
   const max = fragen.length - 1;
   const min = 0;
 
@@ -12,6 +17,8 @@ export default function QuizCarrousel({ fragen, points, setPoints }) {
     max,
     1
   );
+
+  // console.log(`Status Frage: ${fragen[0].status}`);//angekommen
 
   return (
     <div className="quiz-carrousel ">
@@ -26,7 +33,12 @@ export default function QuizCarrousel({ fragen, points, setPoints }) {
       {/* <div className="mood__image">{moods[count]}</div> */}
       {fragen.length > 1 && (
         // <div>{fragen[count].question}</div>
-        <QuizFrage frage={fragen[count]} setPoints={setPoints} />
+        <QuizFrage
+          frage={fragen[count]}
+          setPoints={setPoints}
+          setStatus={setStatus}
+          count={count}
+        />
         //hier muss information mitgeggben werden/existieren ob frage beantwortet
       )}
       <hr />

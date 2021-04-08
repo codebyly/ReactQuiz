@@ -11,10 +11,16 @@ export default function QuizLoader({ searchTerm }) {
   useLoadQuiz(searchTerm, setQuizFragen);
 
   function setStatus(index, status) {
+    console.log("setStatus aufgerufen");
     const updatedQuizFragen = [...quizFragen];
     updatedQuizFragen[index].status = status;
     setQuizFragen(updatedQuizFragen);
   }
+  //  setStatus Weiterrecihen bis zur QuizFrage zusammen
+  //  mit dem index aus QuizCaroussel der frage,
+  //  dort funktion nutzen um status der aktuellen Farge zu setzen
+  //  status als klasse setzen
+  //  FKT abhg von frage?
 
   return (
     <div>
@@ -38,12 +44,13 @@ export default function QuizLoader({ searchTerm }) {
 
       {/* {console.log(quizFragen)} */}
 
-      {/* Fragen in QuizCarousel laden */}
+      {/* Fragen in QuizCarousel laden: setStatus mitgeben */}
       {quizFragen.length > 1 && (
         <QuizCarrousel
           fragen={quizFragen}
           points={points}
           setPoints={setPoints}
+          setStatus={setStatus}
         />
       )}
     </div>
@@ -62,7 +69,7 @@ function useLoadQuiz(searchTerm, setQuizFragen) {
 
         const quizData = await resp.json();
         for (const result of quizData.results) {
-          result.status = "unanswered";
+          result.status = "unanswered"; //status wird hinzugefügt
         }
         setQuizFragen(quizData.results);
         // console.log(quizData.results);
