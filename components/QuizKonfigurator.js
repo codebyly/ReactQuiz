@@ -65,7 +65,8 @@ export default function QuizKonfigurator() {
             }}
             // setzt category auf ausgwählten value
           >
-            <option value="10">10 (default)</option>
+            <option value="5">5 (default)</option>
+            <option value="10">10 </option>
             <option value="15">15 </option>
             <option value="20">20 </option>
           </select>

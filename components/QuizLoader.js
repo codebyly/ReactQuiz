@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import QuizCarrousel from "./QuizCarrousel";
+import QuizResult from "./QuizResult";
 // import QuizFrage from "./QuizFrage";
 
 export default function QuizLoader({ searchTerm }) {
@@ -9,6 +10,8 @@ export default function QuizLoader({ searchTerm }) {
   const [quizFragen, setQuizFragen] = useState([]); //Quizfragen = Ergebnis der anfrage
   const [points, setPoints] = useState(0); //ursprünglich in QuizCarousel
   const [completed, setCompleted] = useState(0); //zählt beantwortete Fragen
+  const isCompleted = completed >= quizFragen.length;
+  // console.log(`Game beendet: ${isCompleted}`);
 
   useLoadQuiz(searchTerm, setQuizFragen);
 
@@ -46,8 +49,10 @@ export default function QuizLoader({ searchTerm }) {
 
       {/* {console.log(quizFragen)} */}
 
-      {/* Fragen in QuizCarousel laden: setStatus mitgeben */}
-      {quizFragen.length > 1 && (
+      {/* Fragen in QuizCarousel laden: setStatus mitgeben 
+      nur anzeigen, wenn Fragen geladen 
+      und ausblenden sobald beendet*/}
+      {quizFragen.length > 1 && !isCompleted && (
         <QuizCarrousel
           fragen={quizFragen}
           points={points}
@@ -57,6 +62,7 @@ export default function QuizLoader({ searchTerm }) {
           setStatus={setStatus}
         />
       )}
+      {isCompleted && <QuizResult />}
     </div>
   );
 }
