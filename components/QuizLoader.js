@@ -5,10 +5,18 @@ import QuizCarrousel from "./QuizCarrousel";
 import QuizResult from "./QuizResult";
 // import QuizFrage from "./QuizFrage";
 
-export default function QuizLoader({ searchTerm, amount }) {
+export default function QuizLoader({
+  searchTerm,
+  amount,
+  points,
+  setPoints,
+  completed,
+  setCompleted,
+  // getCounter,
+}) {
   const [quizFragen, setQuizFragen] = useState([]); //Quizfragen = Ergebnis der anfrage
-  const [points, setPoints] = useState(0); //anzahl richtige antworten = punkte
-  const [completed, setCompleted] = useState(0); //zählt beantwortete Fragen
+  // const [points, setPoints] = useState(0); //anzahl richtige antworten = punkte
+  // const [completed, setCompleted] = useState(0); //zählt beantwortete Fragen
   const isCompleted = completed >= quizFragen.length;
   // console.log(`Game beendet: ${isCompleted}`);
 
@@ -54,6 +62,7 @@ export default function QuizLoader({ searchTerm, amount }) {
           completed={completed}
           setCompleted={setCompleted}
           setStatus={setStatus}
+          // getCounter={getCounter}
         />
       )}
       {/* QuizResult laden sobald Fragen geladen und Quiz beendet */}

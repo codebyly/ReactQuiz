@@ -18,7 +18,7 @@ function getStatusText(points, amount) {
   if (points >= amount && points < amount) {
     return "Not too bad... 😄 ";
   }
-  if ((points = amount)) {
+  if (points === amount) {
     return "Perfect Score! 🎉";
   } else {
     return "Congratulations 🎉, you finished!";

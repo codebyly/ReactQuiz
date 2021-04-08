@@ -8,19 +8,25 @@ export default function QuizCarrousel({
   completed,
   setCompleted,
   setStatus,
+  // getCounter,
 }) {
   const max = fragen.length - 1;
   const min = 0;
 
-  //   const { count, increment, decrement, reset, isMax, isMin } = useCount(
-  const { count, increment, decrement, isMax, isMin } = useCount(
+  //   const { count, setCount, increment, decrement, reset, isMax, isMin } = useCount(
+  const { count, increment, decrement /*, isMax, isMin*/ } = useCount(
     0,
     min,
     max,
     1
   );
 
+  // getCounter(setCount);
+  // setCount(0);//führt zu Fehler: too many rerenders!
+
   // console.log(`Status Frage: ${fragen[0].status}`);//angekommen
+
+  //reset Counter
 
   return (
     <div className="quiz quiz-carrousel ">
@@ -33,9 +39,7 @@ export default function QuizCarrousel({
       </p>
       <hr />
 
-      {/* <div className="mood__image">{moods[count]}</div> */}
       {fragen.length > 1 && (
-        // <div>{fragen[count].question}</div>
         <QuizFrage
           frage={fragen[count]}
           setPoints={setPoints}
@@ -47,10 +51,10 @@ export default function QuizCarrousel({
       )}
       <hr />
       <div className="mood__buttons">
-        <button className="links" onClick={decrement} disabled={isMin}>
+        <button className="links" onClick={decrement} /*disabled={isMin}*/>
           prev
         </button>
-        <button className="rechts" onClick={increment} disabled={isMax}>
+        <button className="rechts" onClick={increment} /*disabled={isMax}*/>
           next
         </button>
       </div>

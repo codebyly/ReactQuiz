@@ -7,12 +7,28 @@ export default function QuizKonfigurator() {
   const [level, setLevel] = useState(0); //&difficulty=easy
   const [amount, setAmount] = useState(5);
   const [isStarted, setIsStarted] = useState(false);
+  const [searchTerm, setSetSearchTerm] = useState("");
+
+  const [points, setPoints] = useState(0); //anzahl richtige antworten = punkte
+  const [completed, setCompleted] = useState(0); //zählt beantwortete Fragen
 
   const basicSearchTerm = `https://opentdb.com/api.php?amount=${amount}`;
-  const searchTerm = `${basicSearchTerm}&category=${category}&difficulty=${level}`;
+  const searchTermLink = `${basicSearchTerm}&category=${category}&difficulty=${level}`;
 
+  //weiterreichen bis QuizCarrousel, um count zu resetten
+  // function getCounter(setCount) {
+  //   setCount(0);
+  //   console.log("setCount");
+  // }
+
+  //Click auf Start
   const loadQuiz = () => {
     setIsStarted(true);
+    setSetSearchTerm(searchTermLink); //Daten werden erst bei Start eingesetzt
+    //reset points und completed
+    setPoints(0);
+    setCompleted(0);
+    //zurück zu frage 1 >> counter=1
   };
 
   return (
@@ -76,15 +92,25 @@ export default function QuizKonfigurator() {
           <button onClick={loadQuiz}>START</button>
         </form>
       </div>
-      <div className="quiz">
+      {/* <div className="quiz">
         <strong>Aktueller Suchpfad: </strong>
         <br />
-        {/* <a href={basicSearchTerm}>{basicSearchTerm}</a> */}
+        <a href={basicSearchTerm}>{basicSearchTerm}</a>
         <a href={searchTerm}>{searchTerm}</a>
-      </div>
+      </div> */}
 
       {/* Quiz erst bei Klick auf Start (isStarted) */}
-      {isStarted && <QuizLoader searchTerm={searchTerm} amount={amount} />}
+      {isStarted && (
+        <QuizLoader
+          searchTerm={searchTerm}
+          amount={amount}
+          points={points}
+          setPoints={setPoints}
+          completed={completed}
+          setCompleted={setCompleted}
+          // getCounter={getCounter}
+        />
+      )}
     </>
   );
 }
