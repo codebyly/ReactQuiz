@@ -18,7 +18,7 @@ export default function QuizFrage({
   //useEffect reagiert auf Änderung von status
   // setzt IsChecked zum disablen/enablen der Antworten
   useEffect(() => {
-    document.title = `Question ${count + 1}: ${frage.status} `;
+    document.title = `Quiz - Question ${count + 1}: ${frage.status} `;
     frage.status !== "unanswered" ? setIsChecked(true) : setIsChecked(false);
   }, [frage.status, count, setIsChecked]);
 

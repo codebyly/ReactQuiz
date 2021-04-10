@@ -6,9 +6,9 @@ export default function QuizKonfigurator() {
   const [category, setCategory] = useState(0); // &category=23
   const [level, setLevel] = useState(0); //&difficulty=easy
   const [amount, setAmount] = useState(5);
+  const [searchTerm, setSearchTerm] = useState("");
   const [isStarted, setIsStarted] = useState(false);
-  const [searchTerm, setSetSearchTerm] = useState("");
-  const [termHasChanged, setTermHasChanged] = useState(true);
+  const [termHasChanged, setTermHasChanged] = useState(true); //prüft ob sich Suchterm ändert
 
   const [points, setPoints] = useState(0); //anzahl richtige antworten = punkte
   const [completed, setCompleted] = useState(0); //zählt beantwortete Fragen
@@ -16,16 +16,15 @@ export default function QuizKonfigurator() {
   const basicSearchTerm = `https://opentdb.com/api.php?amount=${amount}`;
   const searchTermLink = `${basicSearchTerm}&category=${category}&difficulty=${level}`;
 
-  //weiterreichen bis QuizCarrousel, um count zu resetten
-  // function setCounter(reset) {
-  //   console.log("reset count");
-  //   reset;
-  // }
+  //Titel anpassen
+  useEffect(() => {
+    completed === 0 && (document.title = "Quiz");
+    completed === amount && (document.title = "Quiz - Finished");
+  }, [completed, amount]);
 
   //Click auf Start
   const loadQuiz = () => {
-    // console.log(` bei Start: geändert?${termHasChanged}`);
-    setSetSearchTerm(searchTermLink); //Daten werden erst bei Start eingesetzt
+    setSearchTerm(searchTermLink); //Daten werden erst bei Start eingesetzt
     setIsStarted(true);
 
     //reset points und completed
@@ -33,14 +32,8 @@ export default function QuizKonfigurator() {
     setCompleted(0);
     // zurück zu frage 1, geht leider nur über reset button!
 
-    setTermHasChanged(false); //wird erst nach Start ausgfeührt
-    // console.log(` Ende STart: ${termHasChanged}`);
+    setTermHasChanged(false);
   };
-
-  useEffect(() => {
-    completed === 0 && (document.title = "Willkommen");
-    completed === amount && (document.title = "Finished");
-  }, [completed, amount]);
 
   return (
     <>
@@ -50,14 +43,12 @@ export default function QuizKonfigurator() {
 
           <div className="filter__category">
             <label htmlFor="category">Choose a category: </label>
-
             <select
               id="category"
               value={category}
               onChange={(e) => {
                 // console.log(" kategorie geändert");
                 setTermHasChanged(true);
-
                 setCategory(parseInt(e.target.value));
               }}
               // setzt category auf ausgwählten value
@@ -73,7 +64,6 @@ export default function QuizKonfigurator() {
 
           <div className="filter__level">
             <label htmlFor="level">Choose a difficulty level: </label>
-
             <select
               id="level"
               value={level}
@@ -108,32 +98,26 @@ export default function QuizKonfigurator() {
             </select>
           </div>
 
-          {/* nur klickbar/sichtabr, wenn suchterm neu  */}
+          {/* nur sichtabr, wenn suchterm neu oder quiz beendet */}
           {(termHasChanged || completed === amount) && (
             <button onClick={loadQuiz}>
               {termHasChanged
-                ? "START new quiz"
+                ? "START NEW QUIZ"
                 : completed === amount
-                ? "show again"
+                ? "SHOW AGAIN"
                 : ""}
             </button>
           )}
-          {/* <button onClick={loadQuiz}>
-            {completed === amount
-              ? "display questions again"
-              : termHasChanged
-              ? "START new quiz"
-              : "SHOW"}
-          </button> */}
         </form>
       </div>
+
       {/* <div className="quiz">
         <h3>Aktueller Suchpfad: </h3>
         <a href={basicSearchTerm}>{basicSearchTerm}</a>
         <a href={searchTerm}>{searchTerm}</a>
       </div> */}
 
-      {/* Quiz erst bei Klick auf Start (isStarted) */}
+      {/* Quiz erst nach Klick auf Start (isStarted) zeigen*/}
       {isStarted && (
         <QuizLoader
           searchTerm={searchTerm}
