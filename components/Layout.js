@@ -6,13 +6,11 @@ export default function Layout({ children, title }) {
   return (
     <div className="site-wrapper">
       <Head>
-        <title>{title || "NextJs (Fallback-Titel)"}</title>
-        {/* nimmt eineggeben titel OR Defaultwert */}
+        <title>{title || "Projektarbeit by Lydia Heymach"}</title>
       </Head>
 
       <Header />
       <main className="site-main inner-width">
-        {/* //falls titel existiert titel ausgeben sonst nichts */}
         {title && <h2>{title}</h2>}
         {children}
       </main>

@@ -38,7 +38,6 @@ export default function QuizCarrousel({
           count={count}
           setCompleted={setCompleted}
         />
-        //hier muss information mitgegegben werden/existieren ob frage beantwortet
       )}
       <hr />
       <div className="mood__buttons">

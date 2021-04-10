@@ -3,9 +3,6 @@ export default function Navigation() {
   return (
     <nav className="site-navigation">
       <Link href="/">
-        <a>Start</a>
-      </Link>
-      <Link href="/quiz">
         <a>Quiz</a>
       </Link>
       <Link href="/joke">

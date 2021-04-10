@@ -3,9 +3,9 @@ export default function Impressum() {
   return (
     <Layout title="Impressum">
       <div className="quiz">
-        <p>Ein cimdata Projekt von Lydia Heymach</p>
+        <p>A cimdata projekt by Lydia Heymach</p>
         <hr />
-        <strong>verwendete APIS</strong>
+        <strong>used APIS</strong>
         <p>
           Quiz: <a href="https://opentdb.com/">https://opentdb.com</a>
         </p>
