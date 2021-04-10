@@ -28,6 +28,7 @@ export default function QuizKonfigurator() {
     //reset points und completed
     setPoints(0);
     setCompleted(0);
+
     //zurück zu frage 1 >> counter=1
   };
 
@@ -93,8 +94,7 @@ export default function QuizKonfigurator() {
         </form>
       </div>
       {/* <div className="quiz">
-        <strong>Aktueller Suchpfad: </strong>
-        <br />
+        <h3>Aktueller Suchpfad: </h3>
         <a href={basicSearchTerm}>{basicSearchTerm}</a>
         <a href={searchTerm}>{searchTerm}</a>
       </div> */}

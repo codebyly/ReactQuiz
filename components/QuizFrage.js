@@ -8,8 +8,7 @@ export default function QuizFrage({
   setCompleted,
   // , id
 }) {
-  const [isChecked, setIsChecked] = useState(false);
-
+  const [isChecked, setIsChecked] = useState(false); //in Konfig
   // const [statusAntwort, setStatusAntwort] = useState("unbeantwortet");
 
   //useMemo abhg von änderung der frage
@@ -21,7 +20,7 @@ export default function QuizFrage({
   useEffect(() => {
     document.title = `Question ${count + 1}: ${frage.status} `;
     frage.status !== "unanswered" ? setIsChecked(true) : setIsChecked(false);
-  }, [frage.status, count]);
+  }, [frage.status, count, setIsChecked]);
 
   let css_classes_h2 = "unbeantwortet"; //zeigt Zustand der Frage
   // wenn   frage.status !== "unanswered"  >> gib cssklasse beantortrt bzw correct/incorrect
@@ -34,7 +33,7 @@ export default function QuizFrage({
 
     //frage ist beantrwortet, status setzen
     // setStatus(count, "answered");
-    frage.status !== "unanswered" && console.log("BEANTWORTET");
+    frage.status !== "unanswered";
     // setStatusAntwort("beantwortet");
     //zähler hochsetzen
     setCompleted((current) => current + 1);

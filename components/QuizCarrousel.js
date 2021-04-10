@@ -14,7 +14,7 @@ export default function QuizCarrousel({
   const min = 0;
 
   //   const { count, setCount, increment, decrement, reset, isMax, isMin } = useCount(
-  const { count, increment, decrement /*, isMax, isMin*/ } = useCount(
+  const { count, increment, decrement, reset /*, isMax, isMin*/ } = useCount(
     0,
     min,
     max,
@@ -57,6 +57,7 @@ export default function QuizCarrousel({
         <button className="rechts" onClick={increment} /*disabled={isMax}*/>
           next
         </button>
+        <button onClick={reset}>go to #1</button>
       </div>
     </div>
   );
