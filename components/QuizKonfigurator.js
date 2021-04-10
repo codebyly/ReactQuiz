@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import categories from "../components/categories";
 import QuizLoader from "./QuizLoader";
 
@@ -24,20 +24,23 @@ export default function QuizKonfigurator() {
 
   //Click auf Start
   const loadQuiz = () => {
-    // console.log("STARTEN");
-    console.log(` bei Start: geändert?${termHasChanged}`);
-    termHasChanged && console.log("suche wurde verändert");
+    // console.log(` bei Start: geändert?${termHasChanged}`);
     setSetSearchTerm(searchTermLink); //Daten werden erst bei Start eingesetzt
     setIsStarted(true);
 
     //reset points und completed
     setPoints(0);
     setCompleted(0);
-    // zurück zu frage 1
-    // e.target.innerHTML = "clicked";
+    // zurück zu frage 1, geht leider nur über reset button!
+
     setTermHasChanged(false); //wird erst nach Start ausgfeührt
     // console.log(` Ende STart: ${termHasChanged}`);
   };
+
+  useEffect(() => {
+    completed === 0 && (document.title = "Willkommen");
+    completed === amount && (document.title = "Finished");
+  }, [completed, amount]);
 
   return (
     <>
@@ -52,7 +55,7 @@ export default function QuizKonfigurator() {
               id="category"
               value={category}
               onChange={(e) => {
-                console.log(" kategorie geändert");
+                // console.log(" kategorie geändert");
                 setTermHasChanged(true);
 
                 setCategory(parseInt(e.target.value));
@@ -75,7 +78,7 @@ export default function QuizKonfigurator() {
               id="level"
               value={level}
               onChange={(e) => {
-                console.log(" level geändert");
+                // console.log(" level geändert");
                 setTermHasChanged(true);
                 setLevel(e.target.value);
               }}
@@ -93,7 +96,7 @@ export default function QuizKonfigurator() {
               id="amount"
               value={amount}
               onChange={(e) => {
-                console.log(" anzahl geändert");
+                // console.log(" anzahl geändert");
                 setTermHasChanged(true);
                 setAmount(parseInt(e.target.value));
               }}
