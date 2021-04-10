@@ -13,7 +13,6 @@ export default function QuizCarrousel({
   const max = fragen.length - 1;
   const min = 0;
 
-  //   const { count, setCount, increment, decrement, reset, isMax, isMin } = useCount(
   const { count, increment, decrement, reset /*, isMax, isMin*/ } = useCount(
     0,
     min,
@@ -47,7 +46,7 @@ export default function QuizCarrousel({
           count={count}
           setCompleted={setCompleted}
         />
-        //hier muss information mitgeggben werden/existieren ob frage beantwortet
+        //hier muss information mitgegegben werden/existieren ob frage beantwortet
       )}
       <hr />
       <div className="mood__buttons">

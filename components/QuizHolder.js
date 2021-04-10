@@ -1,27 +1,23 @@
-// import { useState, useEffect } from "react"
-
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import QuizCarrousel from "./QuizCarrousel";
 import QuizResult from "./QuizResult";
 // import QuizFrage from "./QuizFrage";
 
-export default function QuizLoader({
-  searchTerm,
+export default function QuizHolder({
   amount,
-  points,
-  setPoints,
-  completed,
-  setCompleted,
-  // isChecked,
-  // setIsChecked,
-  // getCounter,
+  searchTermLink,
+  setSearchTerm,
+  searchTerm,
 }) {
+  // setSearchTerm(searchTermLink);
+
   const [quizFragen, setQuizFragen] = useState([]); //Quizfragen = Ergebnis der anfrage
-  // const [points, setPoints] = useState(0); //anzahl richtige antworten = punkte
-  // const [completed, setCompleted] = useState(0); //zählt beantwortete Fragen
+  const [points, setPoints] = useState(0); //anzahl richtige antworten = punkte
+  const [completed, setCompleted] = useState(0); //zählt beantwortete Fragen
   const isCompleted = completed >= quizFragen.length;
   // console.log(`Game beendet: ${isCompleted}`);
 
+  const [isStarted, setIsStarted] = useState(false);
   useLoadQuiz(searchTerm, setQuizFragen);
 
   //setStatus setzt Status der einzelnen Frage
@@ -33,29 +29,23 @@ export default function QuizLoader({
     setQuizFragen(updatedQuizFragen);
   }
 
+  //Click auf Starter
+  const loadQuiz = () => {
+    setIsStarted(true);
+    setSearchTerm(searchTermLink); //Daten werden erst bei Start eingesetzt
+    //reset points und completed
+    setPoints(0);
+    setCompleted(0);
+    //zurück zu frage 1 >> counter=1
+  };
+
   return (
     <div>
-      {/* nur wenn Fragen geladen und String angeben */}
-      {/* array durchlaufen, für jedes Eleemtn eine Frage erzeugen */}
+      <button onClick={loadQuiz}>Starter</button>
 
-      {/* Fragen untereinander laden */}
-      {/* <p>Punktestand: {points}</p>
-      {quizFragen.map((frage, index) => (
-        // <p>Kategorie: {frage.category}</p>
-
-        <QuizFrage
-          key={index}
-          frage={frage}
-          id={index + 1}
-          fragen={quizFragen}
-          setPoints={setPoints}
-        />
-        // einzelner FrageDeatensatze wird übergeben
-      ))} */}
-
-      {/* Fragen in QuizCarousel laden: setStatus mitgeben 
-      nur anzeigen, wenn Fragen geladen 
-      und ausblenden sobald beendet*/}
+      {/* Fragen in QuizCarousel laden: setStatus mitgeben
+          nur anzeigen, wenn Fragen geladen
+          und ausblenden sobald beendet*/}
       {quizFragen.length > 1 && !isCompleted && (
         <QuizCarrousel
           fragen={quizFragen}
@@ -64,6 +54,7 @@ export default function QuizLoader({
           completed={completed}
           setCompleted={setCompleted}
           setStatus={setStatus}
+          isStarted={isStarted}
           // getCounter={getCounter}
         />
       )}
@@ -80,11 +71,9 @@ function useLoadQuiz(searchTerm, setQuizFragen) {
     async function fetchQuiz() {
       try {
         const resp = await fetch(searchTerm);
-
         if (!resp.ok) {
           throw new Error("Fehler beim Laden der Quizfragen");
         }
-
         const quizData = await resp.json();
         for (const result of quizData.results) {
           result.status = "unanswered"; //status wird hinzugefügt
