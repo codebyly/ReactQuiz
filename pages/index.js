@@ -4,7 +4,6 @@ import QuizKonfigurator from "../components/QuizKonfigurator";
 export default function Home() {
   return (
     <Layout title="Quiz">
-      {/* Version 1 */}
       <QuizKonfigurator />
     </Layout>
   );
