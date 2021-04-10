@@ -9,7 +9,7 @@ export default function Navigation() {
         <a>Quiz</a>
       </Link>
       <Link href="/joke">
-        <a>Joke of the day</a>
+        <a>Random Joke</a>
       </Link>
       <Link href="/impressum">
         <a>Impressum</a>

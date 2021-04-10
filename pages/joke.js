@@ -3,7 +3,7 @@ import JokeFinder from "../components/JokeFinder";
 
 export default function joke() {
   return (
-    <Layout title="Joke of the Day">
+    <Layout title="Random Joke">
       <JokeFinder />
     </Layout>
   );
