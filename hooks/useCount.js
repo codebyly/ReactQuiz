@@ -12,12 +12,8 @@ export function useCount(start, min, max, step = 1) {
   const decrement = () =>
     setCount((current) => (current - step < min ? max : current - step));
 
-  // const increment = () =>
-  //   setCount((current) => (current + step > max ? max : current + step));
-  // const decrement = () =>
-  //   setCount((current) => (current - step < min ? min : current - step));
   const reset = () => {
-    setCount(start), console.log("reset");
+    setCount(start);
   };
 
   return { count, setCount, increment, decrement, reset, isMax, isMin }; //Vorteil Obj Reihenfolge egal!!
