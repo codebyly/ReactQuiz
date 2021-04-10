@@ -8,6 +8,7 @@ export default function QuizKonfigurator() {
   const [amount, setAmount] = useState(5);
   const [isStarted, setIsStarted] = useState(false);
   const [searchTerm, setSetSearchTerm] = useState("");
+  const [termHasChanged, setTermHasChanged] = useState(true);
 
   const [points, setPoints] = useState(0); //anzahl richtige antworten = punkte
   const [completed, setCompleted] = useState(0); //zählt beantwortete Fragen
@@ -16,20 +17,26 @@ export default function QuizKonfigurator() {
   const searchTermLink = `${basicSearchTerm}&category=${category}&difficulty=${level}`;
 
   //weiterreichen bis QuizCarrousel, um count zu resetten
-  // function getCounter(setCount) {
-  //   setCount(0);
-  //   console.log("setCount");
+  // function setCounter(reset) {
+  //   console.log("reset count");
+  //   reset;
   // }
 
   //Click auf Start
   const loadQuiz = () => {
-    setIsStarted(true);
+    // console.log("STARTEN");
+    console.log(` bei Start: geändert?${termHasChanged}`);
+    termHasChanged && console.log("suche wurde verändert");
     setSetSearchTerm(searchTermLink); //Daten werden erst bei Start eingesetzt
+    setIsStarted(true);
+
     //reset points und completed
     setPoints(0);
     setCompleted(0);
-
-    //zurück zu frage 1 >> counter=1
+    // zurück zu frage 1
+    // e.target.innerHTML = "clicked";
+    setTermHasChanged(false); //wird erst nach Start ausgfeührt
+    // console.log(` Ende STart: ${termHasChanged}`);
   };
 
   return (
@@ -44,7 +51,12 @@ export default function QuizKonfigurator() {
             <select
               id="category"
               value={category}
-              onChange={(e) => setCategory(parseInt(e.target.value))}
+              onChange={(e) => {
+                console.log(" kategorie geändert");
+                setTermHasChanged(true);
+
+                setCategory(parseInt(e.target.value));
+              }}
               // setzt category auf ausgwählten value
             >
               <option value="0">Any Category (default)</option>
@@ -56,14 +68,17 @@ export default function QuizKonfigurator() {
             </select>
           </div>
 
-          <div className="filter__category">
-            <label htmlFor="category">Choose a difficulty level: </label>
+          <div className="filter__level">
+            <label htmlFor="level">Choose a difficulty level: </label>
 
             <select
               id="level"
               value={level}
-              onChange={(e) => setLevel(e.target.value)}
-              // setzt category auf ausgwählten value
+              onChange={(e) => {
+                console.log(" level geändert");
+                setTermHasChanged(true);
+                setLevel(e.target.value);
+              }}
             >
               <option value="0">Any (default)</option>
               <option value="easy">Easy</option>
@@ -72,16 +87,16 @@ export default function QuizKonfigurator() {
             </select>
           </div>
 
-          <div className="filter__category">
-            <label htmlFor="category">Choose amount of questions: </label>
+          <div className="filter__amount">
+            <label htmlFor="amount">Choose amount of questions: </label>
             <select
               id="amount"
               value={amount}
               onChange={(e) => {
+                console.log(" anzahl geändert");
+                setTermHasChanged(true);
                 setAmount(parseInt(e.target.value));
-                // console.log(amount);
               }}
-              // setzt category auf ausgwählten value
             >
               <option value="5">5 (default)</option>
               <option value="10">10 </option>
@@ -90,7 +105,23 @@ export default function QuizKonfigurator() {
             </select>
           </div>
 
-          <button onClick={loadQuiz}>START</button>
+          {/* nur klickbar/sichtabr, wenn suchterm neu  */}
+          {(termHasChanged || completed === amount) && (
+            <button onClick={loadQuiz}>
+              {termHasChanged
+                ? "START new quiz"
+                : completed === amount
+                ? "show again"
+                : ""}
+            </button>
+          )}
+          {/* <button onClick={loadQuiz}>
+            {completed === amount
+              ? "display questions again"
+              : termHasChanged
+              ? "START new quiz"
+              : "SHOW"}
+          </button> */}
         </form>
       </div>
       {/* <div className="quiz">
@@ -108,7 +139,6 @@ export default function QuizKonfigurator() {
           setPoints={setPoints}
           completed={completed}
           setCompleted={setCompleted}
-          // getCounter={getCounter}
         />
       )}
     </>

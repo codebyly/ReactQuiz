@@ -14,7 +14,6 @@ export default function QuizLoader({
   setCompleted,
   // isChecked,
   // setIsChecked,
-  // getCounter,
 }) {
   const [quizFragen, setQuizFragen] = useState([]); //Quizfragen = Ergebnis der anfrage
   // const [points, setPoints] = useState(0); //anzahl richtige antworten = punkte
@@ -64,7 +63,6 @@ export default function QuizLoader({
           completed={completed}
           setCompleted={setCompleted}
           setStatus={setStatus}
-          // getCounter={getCounter}
         />
       )}
       {/* QuizResult laden sobald Fragen geladen und Quiz beendet */}

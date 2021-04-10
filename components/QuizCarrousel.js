@@ -8,7 +8,6 @@ export default function QuizCarrousel({
   completed,
   setCompleted,
   setStatus,
-  // getCounter,
 }) {
   const max = fragen.length - 1;
   const min = 0;
@@ -20,15 +19,8 @@ export default function QuizCarrousel({
     1
   );
 
-  // getCounter(setCount);
-  // setCount(0);//führt zu Fehler: too many rerenders!
-
-  // console.log(`Status Frage: ${fragen[0].status}`);//angekommen
-
-  //reset Counter
-
   return (
-    <div className="quiz quiz-carrousel ">
+    <div onLoad={reset} className="quiz quiz-carrousel ">
       <p>
         <span className="links">
           Question # {count + 1}/{fragen.length}
